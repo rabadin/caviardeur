@@ -1,6 +1,6 @@
 [project]
 name = "caviardeur"
-version = "0.3.0"
+version = "0.4.0"
 description = "Pseudonymize PII in documents locally (PDF, DOCX, PPTX, XLSX, TXT, MD, JSON, XML)"
 readme = "README.md"
 authors = [
