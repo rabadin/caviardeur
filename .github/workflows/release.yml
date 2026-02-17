@@ -34,6 +34,7 @@ jobs:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest
@@ -43,6 +44,9 @@ jobs:
           - os: windows-latest
             suffix: windows-amd64
     runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2
