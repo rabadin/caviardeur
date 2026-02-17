@@ -50,6 +50,9 @@ uv run pyinstaller \
   --collect-all transformers \
   --collect-all sentencepiece \
   --collect-all torch \
+  --exclude-module nvidia \
+  --exclude-module torch.backends.cudnn \
+  --exclude-module torch.cuda \
   --hidden-import=openpyxl \
   --hidden-import=xlrd \
   --hidden-import=docx \
