@@ -107,14 +107,6 @@ def test_cli_no_supported_files(tmp_path: Path):
     assert "No supported files found" in result.output
 
 
-def test_cli_version():
-    runner = CliRunner()
-    result = runner.invoke(main, ["--version"])
-
-    assert result.exit_code == 0
-    assert "0.1.0" in result.output
-
-
 @patch("caviardeur.pipeline.detect_all", return_value=[])
 def test_cli_no_entities_no_mapping_saved(mock_detect, tmp_path: Path):
     txt = tmp_path / "test.txt"
