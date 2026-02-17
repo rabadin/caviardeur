@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/rabadin/caviardeur/compare/v0.2.0...v0.3.0) (2026-02-17)
+
+
+### Bug Fixes
+
+* **ci:** drop Windows build and use CPU-only torch for packaging ([#9](https://github.com/rabadin/caviardeur/issues/9)) ([5f22580](https://github.com/rabadin/caviardeur/commit/5f22580a095072e81a74ffcfdc3f0ba27dc94959))
+
 ## [0.2.0](https://github.com/rabadin/caviardeur/compare/v0.1.0...v0.2.0) (2026-02-17)
 
 
