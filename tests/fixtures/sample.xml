@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dossier>
+  <client>
+    <nom>Jean Dupont</nom>
+    <entreprise>Nextech Solutions SAS</entreprise>
+    <siret>73282932000074</siret>
+    <adresse>12 rue de la Paix, 75002 Paris</adresse>
+  </client>
+  <contact>
+    <nom>Marie Laurent</nom>
+    <adresse>45 boulevard Haussmann, 75009 Paris</adresse>
+  </contact>
+</dossier>

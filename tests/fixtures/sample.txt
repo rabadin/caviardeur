@@ -1,0 +1,31 @@
+Contrat de prestation de services
+
+Entre les soussignés :
+
+Monsieur Jean Dupont, demeurant au 12 rue de la Paix, 75002 Paris,
+ci-après désigné « le Prestataire »,
+
+Et la société Nextech Solutions SAS, dont le siège social est situé au
+45 boulevard Haussmann, 75009 Paris, immatriculée au RCS de Paris sous
+le numéro SIRET 73282932000074, représentée par Madame Marie Laurent
+en sa qualité de Directrice Générale,
+ci-après désignée « le Client »,
+
+Il a été convenu ce qui suit :
+
+Article 1 — Objet
+Le Prestataire s'engage à fournir au Client des services de conseil
+en transformation numérique.
+
+Article 2 — Durée
+Le présent contrat prend effet à compter du 1er mars 2025 pour une
+durée de 12 mois.
+
+Article 3 — Rémunération
+En contrepartie des services rendus, le Client versera au Prestataire
+une rémunération mensuelle de 5 000 euros HT.
+
+Fait à Paris, le 15 février 2025.
+
+Jean Dupont                    Marie Laurent
+Le Prestataire                 Le Client

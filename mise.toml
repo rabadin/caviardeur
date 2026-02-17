@@ -1,0 +1,68 @@
+[settings]
+locked = false
+
+[tools]
+python = "3.12.12"
+uv = "0.10.3"
+prek = "0.3.3"
+
+[tasks.test]
+description = "Run test suite with coverage"
+run = "uv run pytest"
+depends = ["sync"]
+
+[tasks.lint]
+description = "Run ruff linter and ty type checker"
+run = ["uv run ruff check src/ tests/", "uv run ty check src/"]
+depends = ["sync"]
+
+[tasks.format]
+description = "Format code with ruff"
+run = "uv run ruff format src/ tests/"
+depends = ["sync"]
+
+[tasks."pre-commit"]
+description = "Run pre-commit hooks on all files"
+run = "prek run --all-files"
+depends = ["sync"]
+
+[tasks.sync]
+description = "Install/sync all dependencies"
+run = "uv sync --all-groups"
+
+[tasks.run]
+description = "Run caviardeur CLI"
+run = "uv run caviardeur"
+depends = ["sync"]
+
+[tasks.build]
+description = "Build wheel and sdist"
+run = "uv build"
+depends = ["sync"]
+
+[tasks.package]
+description = "Package as single executable with PyInstaller"
+usage = 'flag "--name <name>" help="Binary name" default="caviardeur"'
+run = """
+uv run pyinstaller \
+  --onefile \
+  --name ${usage_name} \
+  --collect-all transformers \
+  --collect-all sentencepiece \
+  --collect-all torch \
+  --hidden-import=openpyxl \
+  --hidden-import=xlrd \
+  --hidden-import=docx \
+  --hidden-import=pptx \
+  --hidden-import=fitz \
+  src/caviardeur/cli.py
+"""
+depends = ["sync"]
+
+[tasks.clean]
+description = "Remove build artifacts"
+run = "rm -rf dist/ build/ *.spec __pycache__ .pytest_cache"
+
+[tasks."dry-run"]
+description = "Dry-run pseudonymization on test fixtures"
+run = "uv run caviardeur tests/fixtures/ --dry-run"

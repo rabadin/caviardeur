@@ -1,0 +1,12 @@
+{
+  "client": {
+    "nom": "Jean Dupont",
+    "entreprise": "Nextech Solutions SAS",
+    "siret": "73282932000074",
+    "adresse": "12 rue de la Paix, 75002 Paris"
+  },
+  "contact": {
+    "nom": "Marie Laurent",
+    "adresse": "45 boulevard Haussmann, 75009 Paris"
+  }
+}
