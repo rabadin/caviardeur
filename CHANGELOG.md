@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.1](https://github.com/rabadin/caviardeur/compare/v0.4.0...v0.4.1) (2026-02-18)
+
+
+### Bug Fixes
+
+* **ci:** enable mise lockfile and clean up release workflow ([#13](https://github.com/rabadin/caviardeur/issues/13)) ([bf11d10](https://github.com/rabadin/caviardeur/commit/bf11d103620fe26a08ccc339095f77bd293e46b6))
+
 ## [0.4.0](https://github.com/rabadin/caviardeur/compare/v0.3.0...v0.4.0) (2026-02-17)
 
 
