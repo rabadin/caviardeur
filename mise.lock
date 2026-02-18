@@ -1,11 +1,20 @@
 [[tools.prek]]
 version = "0.3.3"
 backend = "aqua:j178/prek"
+"platforms.linux-arm64" = { checksum = "sha256:02628a23f55a88620dcb8ba90987556c7e42ff9f9c7a4359afb1f2ac2884b620", url = "https://github.com/j178/prek/releases/download/v0.3.3/prek-aarch64-unknown-linux-musl.tar.gz"}
+"platforms.linux-x64" = { checksum = "sha256:4967cead51c26313c9dfdad0d2cdedf52ccbfc3d5ebd5dfd61676c45668f3791", url = "https://github.com/j178/prek/releases/download/v0.3.3/prek-x86_64-unknown-linux-musl.tar.gz"}
 "platforms.macos-arm64" = { checksum = "sha256:12c1e281d4d484eaa6d502804c6a8c77ab06f1fdd22c5fd46c02f87ae5f3c1af", url = "https://github.com/j178/prek/releases/download/v0.3.3/prek-aarch64-apple-darwin.tar.gz"}
+"platforms.macos-x64" = { checksum = "sha256:0b65555d2bd2add6b24a1f2be51cfee6d0c837892560baf2c2163bdafafed338", url = "https://github.com/j178/prek/releases/download/v0.3.3/prek-x86_64-apple-darwin.tar.gz"}
+"platforms.windows-x64" = { checksum = "sha256:c829796e1ddad21e82eef768cee01469880caff7b073a2f1c01073fe075d8ba7", url = "https://github.com/j178/prek/releases/download/v0.3.3/prek-x86_64-pc-windows-msvc.zip"}
 
 [[tools.python]]
 version = "3.12.12"
 backend = "core:python"
+"platforms.linux-arm64" = { checksum = "sha256:85fdc64fe672de7337198a63d89918037bf93bdb03480404d90f8f601abef1dd", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20260211/cpython-3.12.12+20260211-aarch64-unknown-linux-gnu-install_only_stripped.tar.gz"}
+"platforms.linux-x64" = { checksum = "sha256:1dbaa624a09e15afe7efbdac08d42993135a68db8d34f986ef6977a6d77bdc3c", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20260211/cpython-3.12.12+20260211-x86_64-unknown-linux-gnu-install_only_stripped.tar.gz"}
+"platforms.macos-arm64" = { checksum = "sha256:22625deaf5757e7c266cf1a096c9151a06b598b1e14632a2ec9993d58ec5fe84", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20260211/cpython-3.12.12+20260211-aarch64-apple-darwin-install_only_stripped.tar.gz"}
+"platforms.macos-x64" = { checksum = "sha256:a84ac7a36d465bc6eb68db84540fdb5da04333900e2c3cb34b5d454f2022048c", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20260211/cpython-3.12.12+20260211-x86_64-apple-darwin-install_only_stripped.tar.gz"}
+"platforms.windows-x64" = { checksum = "sha256:93bf8e8c05ede0077b197a29c99ebdaf253497f27190097494265150b4e70ba8", url = "https://github.com/astral-sh/python-build-standalone/releases/download/20260211/cpython-3.12.12+20260211-x86_64-pc-windows-msvc-install_only_stripped.tar.gz"}
 
 [[tools.uv]]
 version = "0.10.3"
