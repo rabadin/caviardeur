@@ -11,34 +11,36 @@ from .pseudonymizer.engine import pseudonymize
 from .pseudonymizer.mapping import MappingStore
 from .readers.base import DocumentContent
 from .readers.registry import read_document
-from .writers.docx_writer import write_docx
-from .writers.excel_writer import write_xlsx
-from .writers.pdf_writer import write_pdf
-from .writers.pptx_writer import write_pptx
-from .writers.txt_writer import write_txt
 
 logger = logging.getLogger(__name__)
-
-WRITERS = {
-    ".txt": write_txt,
-    ".md": write_txt,
-    ".json": write_txt,
-    ".xml": write_txt,
-    ".docx": write_docx,
-    ".xlsx": write_xlsx,
-    ".pdf": write_pdf,
-    ".pptx": write_pptx,
-}
 
 
 def _write_document(content: DocumentContent, output_path: Path, source_path: Path) -> None:
     """Write a pseudonymized document using the appropriate writer."""
     ext = output_path.suffix.lower()
-    writer = WRITERS.get(ext)
-    if writer is None:
+
+    if ext in (".txt", ".md", ".json", ".xml"):
+        from .writers.txt_writer import write_txt
+
+        write_txt(content, output_path, source_path)
+    elif ext == ".docx":
+        from .writers.docx_writer import write_docx
+
+        write_docx(content, output_path, source_path)
+    elif ext == ".xlsx":
+        from .writers.excel_writer import write_xlsx
+
+        write_xlsx(content, output_path, source_path)
+    elif ext == ".pdf":
+        from .writers.pdf_writer import write_pdf
+
+        write_pdf(content, output_path, source_path)
+    elif ext == ".pptx":
+        from .writers.pptx_writer import write_pptx
+
+        write_pptx(content, output_path, source_path)
+    else:
         logger.warning("No writer for format: %s", ext)
-        return
-    writer(content, output_path, source_path)
 
 
 def _display_detections(file_name: str, entities: list[DetectedEntity], console: Console) -> None:

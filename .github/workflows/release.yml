@@ -2,41 +2,38 @@ name: Release
 
 on:
   push:
-    branches: [main]
+    tags:
+      - 'v*.*.*'
 
 permissions:
   contents: write
-  pull-requests: write
 
 jobs:
-  release-please:
+  create-release:
     runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
-      - uses: googleapis/release-please-action@v4
-        id: release
-        with:
-          release-type: python
+      - uses: actions/checkout@v4
+      - run: gh release create ${{ github.ref_name }} --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   build:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created }}
+    needs: create-release
     strategy:
+      fail-fast: false
       matrix:
         include:
           - os: ubuntu-latest
             suffix: linux-amd64
           - os: macos-latest
             suffix: macos-arm64
-          - os: windows-latest
-            suffix: windows-amd64
     runs-on: ${{ matrix.os }}
+    env:
+      UV_TORCH_BACKEND: cpu
     steps:
       - uses: actions/checkout@v4
       - uses: jdx/mise-action@v2
-      - run: mise run package --name caviardeur-${{ needs.release-please.outputs.tag_name }}-${{ matrix.suffix }}
-      - run: gh release upload ${{ needs.release-please.outputs.tag_name }} dist/caviardeur-${{ needs.release-please.outputs.tag_name }}-${{ matrix.suffix }}*
+      - run: mise run package --name caviardeur-${{ github.ref_name }}-${{ matrix.suffix }}
+      - run: gh release upload ${{ github.ref_name }} dist/caviardeur-${{ github.ref_name }}-${{ matrix.suffix }}
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

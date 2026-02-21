@@ -1,11 +1,11 @@
 import logging
+from importlib.metadata import version
 from pathlib import Path
 
 import click
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 
-from . import __version__
 from .config import Config
 from .pipeline import process_file
 from .pseudonymizer.mapping import MappingStore
@@ -49,7 +49,7 @@ console = Console()
     help="Path to existing mapping.json for cross-batch consistency.",
 )
 @click.option("-v", "--verbose", is_flag=True, default=False, help="Verbose logging.")
-@click.version_option(version=__version__)
+@click.version_option(version=version("caviardeur"))
 def main(
     input_path: Path,
     output_dir: Path,

@@ -1,5 +1,4 @@
 import logging
-from collections.abc import Callable
 from pathlib import Path
 
 try:
@@ -10,25 +9,10 @@ except ImportError:
     _HAS_MAGIC = False
 
 from .base import DocumentContent
-from .docx_reader import read_docx
-from .excel_reader import read_xls, read_xlsx
-from .pdf_reader import read_pdf
-from .pptx_reader import read_pptx
-from .txt_reader import read_txt
 
 logger = logging.getLogger(__name__)
 
-READERS: dict[str, Callable[[Path], DocumentContent]] = {
-    ".txt": read_txt,
-    ".md": read_txt,
-    ".json": read_txt,
-    ".xml": read_txt,
-    ".docx": read_docx,
-    ".xlsx": read_xlsx,
-    ".xls": read_xls,
-    ".pdf": read_pdf,
-    ".pptx": read_pptx,
-}
+SUPPORTED_EXTENSIONS = {".txt", ".md", ".json", ".xml", ".docx", ".xlsx", ".xls", ".pdf", ".pptx"}
 
 UNSUPPORTED_WITH_WARNING: dict[str, str] = {
     ".doc": (
@@ -42,8 +26,6 @@ UNSUPPORTED_WITH_WARNING: dict[str, str] = {
         "libreoffice --headless --convert-to pptx file.ppt)"
     ),
 }
-
-SUPPORTED_EXTENSIONS = set(READERS.keys())
 
 # Expected MIME types for each extension. DOCX/XLSX/PPTX are all zip-based,
 # so magic reports them as application/zip (or the specific OOXML type).
@@ -100,20 +82,44 @@ def read_document(path: Path) -> DocumentContent | None:
         logger.warning("%s: %s", path.name, UNSUPPORTED_WITH_WARNING[ext])
         return None
 
-    reader = READERS.get(ext)
-    if reader is None:
+    if ext not in SUPPORTED_EXTENSIONS:
         logger.debug("Skipping unsupported file: %s", path.name)
         return None
 
     _check_mime(path, ext)
-    return reader(path)
+
+    if ext in (".txt", ".md", ".json", ".xml"):
+        from .txt_reader import read_txt
+
+        return read_txt(path)
+    if ext == ".docx":
+        from .docx_reader import read_docx
+
+        return read_docx(path)
+    if ext == ".xlsx":
+        from .excel_reader import read_xlsx
+
+        return read_xlsx(path)
+    if ext == ".xls":
+        from .excel_reader import read_xls
+
+        return read_xls(path)
+    if ext == ".pdf":
+        from .pdf_reader import read_pdf
+
+        return read_pdf(path)
+    if ext == ".pptx":
+        from .pptx_reader import read_pptx
+
+        return read_pptx(path)
+    return None  # unreachable but satisfies type checker
 
 
 def list_supported_files(path: Path) -> list[Path]:
     """List all supported files in a directory (non-recursive) or return [path] if it's a file."""
     if path.is_file():
         ext = path.suffix.lower()
-        if ext in READERS or ext in UNSUPPORTED_WITH_WARNING:
+        if ext in SUPPORTED_EXTENSIONS or ext in UNSUPPORTED_WITH_WARNING:
             return [path]
         return []
 
@@ -121,6 +127,6 @@ def list_supported_files(path: Path) -> list[Path]:
     for item in sorted(path.iterdir()):
         if item.is_file():
             ext = item.suffix.lower()
-            if ext in READERS or ext in UNSUPPORTED_WITH_WARNING:
+            if ext in SUPPORTED_EXTENSIONS or ext in UNSUPPORTED_WITH_WARNING:
                 files.append(item)
     return files
